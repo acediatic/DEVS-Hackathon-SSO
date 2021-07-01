@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Starter Landing Page`,
-    description: `A barebone landing page starter with some minimal styles.`,
-    author: `@gillkyle`,
-    siteUrl: `https://gatsby-starter-landing-page.netlify.com`,
+    title: `DEVS 2021 Hackathon`,
+    description: `A sign in/out utility for the 2021 DEVS Hackathon.`,
+    author: `@acediatic`,
+    siteUrl: `https://acediatic.github.io/DEVS-Hackathon-SSO`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
