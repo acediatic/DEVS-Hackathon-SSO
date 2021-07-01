@@ -31,18 +31,10 @@ const Footer = ({ siteTitle }) => (
       <div style={{ color: COLORS.gray }}>
         © {new Date().getFullYear()}
         {` `}
-        {siteTitle}
+        DEVS
       </div>
     </div>
   </footer>
 )
-
-Footer.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Footer.defaultProps = {
-  siteTitle: ``,
-}
 
 export default Footer
