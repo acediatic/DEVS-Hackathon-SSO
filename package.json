@@ -23,6 +23,7 @@
     "sweetalert": "^2.1.2"
   },
   "devDependencies": {
+    "gh-pages": "^3.2.3",
     "prettier": "^1.16.4"
   },
   "keywords": [
@@ -30,6 +31,8 @@
   ],
   "license": "MIT",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
