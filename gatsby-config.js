@@ -5,11 +5,13 @@ module.exports = {
     author: `@acediatic`,
     siteUrl: `https://acediatic.github.io/DEVS-Hackathon-SSO`,
   },
+  pathPrefix: `/DEVS-Hackathon-SSO`,
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
