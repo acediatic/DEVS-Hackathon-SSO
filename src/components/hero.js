@@ -1,10 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import Button from "../components/button"
 import headerImage from "../images/header.png"
-import MockupContent from "./image"
-import mockupFrame from "../images/mockup-frame.png"
+import SSO from "./sso"
 
 const Header = ({ siteTitle }) => (
   <div
@@ -26,29 +24,15 @@ const Header = ({ siteTitle }) => (
         opacity: 0.5,
       }}
     />
-    <h1 style={{ textAlign: "center" }}>Landing Page Starter</h1>
+    <h1 style={{ textAlign: "center" }}>DEVS 2021 Hackathon</h1>
+    <h2 style={{ textAlign: "center" }}>Sign In / Sign Out Utility</h2>
     <p style={{ textAlign: "center", maxWidth: 440 }}>
-      This landing page looks great on all devices and is minimal in design. Add
-      what you want and deploy.
+      When you come and go from{" "}
+      <a href="https://gridakl.com/12-madden-street/">the Grid,</a> please sign
+      in and out for safety reasons - it would sure save our bacon, and it might
+      just save yours too!
     </p>
-    <Button>Get Early Access</Button>
-    <div style={{ margin: 60, width: `250px`, position: "relative" }}>
-      <div style={{ clipPath: "inset(2% 5% round 2% 5%)" }}>
-        <MockupContent />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          width: "250px",
-          top: 0,
-        }}
-      >
-        <img
-          src={mockupFrame}
-          alt="outlines of shapes and confetti in the background "
-        />
-      </div>
-    </div>
+    <SSO />
   </div>
 )
 

@@ -8,6 +8,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #6cf;
+}
+
 article,
 aside,
 details,
@@ -79,6 +87,11 @@ hr {
   height: 0;
   overflow: visible;
 }
+
+input {
+  border: none;
+}
+
 button,
 input,
 select,
@@ -167,6 +180,12 @@ html {
 }
 *:after {
   box-sizing: inherit;
+}
+button {
+  padding: 0.5rem 2.5rem;
+  font-weight: 700;
+  border-width: 0;
+  cursor: "pointer";
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
@@ -364,11 +383,9 @@ form {
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
+  padding: 1rem;
   margin-bottom: 1.45rem;
+  border-radius: 10px;
 }
 noscript {
   margin-left: 0;
