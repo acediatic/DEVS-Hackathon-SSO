@@ -3,27 +3,7 @@ import "../styles/form.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import { COLORS, GRADIENT, BORDER_RADIUS } from "../styles/constants"
-
-import axios from "axios"
-import swal from "sweetalert"
-
-const gcfURL =
-  "https://australia-southeast1-innate-life-318504.cloudfunctions.net/update-db"
-
-const submitForm = userDetails => {
-  const headers = {
-    "Content-Type": "application/json",
-  }
-  axios.post(gcfURL, JSON.stringify(userDetails), { headers })
-  swal({
-    title: userDetails.isSignIn === "true" ? "Ahoy, Matey!" : "You're Outta Here!",
-    text: `You've successfully signed ${
-      userDetails.isSignIn === "true" ? "in" : "out"
-    }!`,
-    icon: "success",
-    button: "Aww yiss!",
-  })
-}
+import submitForm from "../utils/connect-to-server"
 
 export default function Login(props) {
   const [isSignIn, setIsSignIn] = useState(true)
