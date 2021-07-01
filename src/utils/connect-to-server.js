@@ -1,6 +1,9 @@
 import axios from "axios"
 import swal from "sweetalert"
 
+const gcfURL =
+  "https://australia-southeast1-innate-life-318504.cloudfunctions.net/update-db"
+
 const displaySuccessAlert = isSignIn => {
   swal({
     title: isSignIn === "true" ? "Ahoy, Matey!" : "You're Outta Here!",
@@ -19,9 +22,6 @@ const displayErrorAlert = () => {
     button: "*Angry Reaccs*",
   })
 }
-
-const gcfURL =
-  "https://australia-southeast1-innate-life-318504.cloudfunctions.net/update-db"
 
 const submitForm = userDetails => {
   const headers = {
