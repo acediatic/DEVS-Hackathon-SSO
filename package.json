@@ -1,9 +1,9 @@
 {
-  "name": "DEVS 2021 Hackathon - Sign In",
+  "name": "DEVS_2021_Hackathon_SSO",
   "private": true,
-  "description": "A simple starter to create a minimal landing page with Gatsby",
+  "description": "A sign in/out utility for the 2021 DEVS Hackathon.",
   "version": "0.1.0",
-  "author": "Kyle Gill <kyle.robert.gill@gmail.com>",
+  "author": "Adam Sinclair",
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
