@@ -40,8 +40,9 @@ def insert(request):
     last_name_lst = re.findall('[^\W\d_]', last_name)
     last_name = ''.join(last_name_lst)
 
-    insert_query = "insert into {} values ('{}', '{}', NOW(), null)".format(table_name, first_name, last_name)
-    update_query = "UPDATE {} SET so = NOW() WHERE fName='{}' AND lName = '{}' AND ISNULL(so)".format(table_name, first_name, last_name)
+    # DATE_ADD(NOW(), INTERVAL 12 HOUR) adds 12 hours to convert GMT to local. 
+    insert_query = "insert into {} values ('{}', '{}', DATE_ADD(NOW(), INTERVAL 12 HOUR), null)".format(table_name, first_name, last_name)
+    update_query = "UPDATE {} SET so = DATE_ADD(NOW(), INTERVAL 12 HOUR) WHERE fName='{}' AND lName = '{}' AND ISNULL(so)".format(table_name, first_name, last_name)
     
     # Defaults to insert query.
     stmt = sqlalchemy.text(update_query if not isSignIn else insert_query)
