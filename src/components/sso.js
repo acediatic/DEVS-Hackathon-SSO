@@ -9,6 +9,7 @@ export default function Login(props) {
   const [isSignIn, setIsSignIn] = useState(true)
   const [fName, setFName] = useState("")
   const [lName, setLName] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <form className="shadow min-vw-25">
@@ -75,21 +76,32 @@ export default function Login(props) {
       </div>
       <br />
       <div>
-        <button
-          style={{
-            color: COLORS.lightWhite,
-            background: GRADIENT,
-            borderRadius: BORDER_RADIUS,
-            width: "100%",
-          }}
-          type="submit"
-          onClick={e => {
-            e.preventDefault()
-            submitForm({ fName, lName, isSignIn: isSignIn.toString() })
-          }}
-        >
-          Submit
-        </button>
+        {isLoading ? (
+          <div className="col-xs-4 text-center">
+            <div className="spinner-border text-primary" role="status" />
+          </div>
+        ) : (
+          <button
+            style={{
+              color: COLORS.lightWhite,
+              background: GRADIENT,
+              borderRadius: BORDER_RADIUS,
+              width: "100%",
+            }}
+            type="submit"
+            onClick={e => {
+              e.preventDefault()
+              setIsLoading(true)
+              submitForm(
+                { fName, lName, isSignIn: isSignIn.toString() },
+                // Passed to remove spinner when complete.
+                setIsLoading
+              )
+            }}
+          >
+            Submit
+          </button>
+        )}
       </div>
     </form>
   )

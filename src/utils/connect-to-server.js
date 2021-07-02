@@ -23,7 +23,7 @@ const displayErrorAlert = () => {
   })
 }
 
-const submitForm = userDetails => {
+const submitForm = (userDetails, setIsLoading) => {
   const headers = {
     "Content-Type": "application/json",
   }
@@ -42,6 +42,9 @@ const submitForm = userDetails => {
     .catch(error => {
       displayErrorAlert()
       console.log(error)
+    })
+    .finally(() => {
+      setIsLoading(false)
     })
 }
 
