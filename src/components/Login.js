@@ -96,7 +96,7 @@ export default function Login(props) {
         ) : (
           <SubmitButton
             setIsLoading={setIsLoading}
-            submitForm={handleSubmitForm}
+            handleSubmitForm={handleSubmitForm}
           />
         )}
       </div>
