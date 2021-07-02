@@ -1,15 +1,30 @@
+// Component to manage user input for the SSO.
+
 import React, { useState } from "react"
 import "../styles/form.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-import { COLORS, GRADIENT, BORDER_RADIUS } from "../styles/constants"
+import LoadingSpinner from "./LoadingSpinner"
+import SubmitButton from "./SubmitButton"
+
 import submitForm from "../utils/connect-to-server"
 
 export default function Login(props) {
+  // Stores whether the user is signing in (true) or out (false)
+  // Set as null so neither is selected initially.
   const [isSignIn, setIsSignIn] = useState(null)
   const [fName, setFName] = useState("")
   const [lName, setLName] = useState("")
+  // Stores whether the site is currently executing a sign in / out request.
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmitForm = () => {
+    submitForm(
+      { fName, lName, isSignIn: isSignIn.toString() },
+      // Passed to remove spinner when complete.
+      setIsLoading
+    );
+  }
 
   return (
     <form className="shadow min-vw-25">
@@ -75,31 +90,14 @@ export default function Login(props) {
       </div>
       <br />
       <div>
+        {/* Renders a spinner if the site is loading, otherwise the submit button */}
         {isLoading ? (
-          <div className="col-xs-4 text-center">
-            <div className="spinner-border text-primary" role="status" />
-          </div>
+          <LoadingSpinner />
         ) : (
-          <button
-            style={{
-              color: COLORS.lightWhite,
-              background: GRADIENT,
-              borderRadius: BORDER_RADIUS,
-              width: "100%",
-            }}
-            type="submit"
-            onClick={e => {
-              e.preventDefault()
-              setIsLoading(true)
-              submitForm(
-                { fName, lName, isSignIn: isSignIn.toString() },
-                // Passed to remove spinner when complete.
-                setIsLoading
-              )
-            }}
-          >
-            Submit
-          </button>
+          <SubmitButton
+            setIsLoading={setIsLoading}
+            submitForm={handleSubmitForm}
+          />
         )}
       </div>
     </form>
