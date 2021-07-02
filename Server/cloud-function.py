@@ -1,4 +1,5 @@
 import sqlalchemy
+import re
 
 connection_name = "innate-life-318504:australia-southeast1:devs-hackathon"
 table_name = "siso"
@@ -31,6 +32,13 @@ def insert(request):
     first_name = request_json['fName']
     last_name = request_json['lName']
     isSignIn = request_json['isSignIn'] == 'true'
+
+    # Remove all non alphabetic characters to prevent SQL injection.
+    first_name_lst = re.findall('[^\W\d_]', first_name)
+    first_name = ''.join(first_name_lst)
+
+    last_name_lst = re.findall('[^\W\d_]', last_name)
+    last_name = ''.join(last_name_lst)
 
     insert_query = "insert into {} values ('{}', '{}', NOW(), null)".format(table_name, first_name, last_name)
     update_query = "UPDATE {} SET so = NOW() WHERE fName='{}' AND lName = '{}' AND ISNULL(so)".format(table_name, first_name, last_name)
