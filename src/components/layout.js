@@ -9,7 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 
-import Footer from "./footer"
+// import Footer from "./footer"
 import "../styles/default.css"
 
 const Layout = ({ children }) => (
@@ -32,7 +32,7 @@ const Layout = ({ children }) => (
         >
           <main>{children}</main>
         </div>
-        <Footer siteTitle={data.site.siteMetadata.title} />
+        {/* <Footer siteTitle={data.site.siteMetadata.title} /> */}
       </>
     )}
   />

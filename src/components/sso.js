@@ -6,7 +6,7 @@ import { COLORS, GRADIENT, BORDER_RADIUS } from "../styles/constants"
 import submitForm from "../utils/connect-to-server"
 
 export default function Login(props) {
-  const [isSignIn, setIsSignIn] = useState(true)
+  const [isSignIn, setIsSignIn] = useState(null)
   const [fName, setFName] = useState("")
   const [lName, setLName] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -14,7 +14,7 @@ export default function Login(props) {
   return (
     <form className="shadow min-vw-25">
       <div className="form-group">
-        <label htmlFor="fname">First Name:</label>
+        <label htmlFor="fname">First name:</label>
         <input
           id="fname"
           type="text"
@@ -26,7 +26,7 @@ export default function Login(props) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="lname">Last Name:</label>
+        <label htmlFor="lname">Last name:</label>
         <input
           id="lname"
           type="text"
@@ -44,7 +44,7 @@ export default function Login(props) {
           name="is-sign-in"
           id="success-outlined"
           autoComplete="off"
-          checked={isSignIn}
+          checked={isSignIn !== null && isSignIn}
           onChange={e => setIsSignIn(true)}
         />
         <label
@@ -57,14 +57,13 @@ export default function Login(props) {
             🥳
           </span>
         </label>
-
         <input
           type="radio"
           className="btn-check"
           name="is-sign-in"
           id="danger-outlined"
           autoComplete="off"
-          checked={!isSignIn}
+          checked={isSignIn !== null && !isSignIn}
           onChange={e => setIsSignIn(false)}
         />
         <label className="btn btn-outline-danger" htmlFor="danger-outlined">

@@ -5,8 +5,10 @@
   "version": "0.1.0",
   "author": "Adam Sinclair",
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
+    "bootstrap4-toggle": "^3.6.1",
     "gatsby": "^2.1.37",
     "gatsby-image": "^2.0.34",
     "gatsby-plugin-google-analytics": "^2.0.17",
@@ -20,7 +22,7 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-helmet": "^5.2.0",
-    "sharp": "^0.22.0",
+    "sharp": "^0.28.3",
     "sweetalert": "^2.1.2"
   },
   "devDependencies": {
