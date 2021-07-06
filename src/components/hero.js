@@ -2,9 +2,10 @@ import React from "react"
 import PropTypes from "prop-types"
 
 import headerImage from "../images/header.png"
-import SSO from "./sso"
+import Login from "./Login"
 
-const Header = ({ siteTitle }) => (
+// Displays Welcome Text with SSO element to manage user input.
+const Header = () => (
   <div
     style={{
       display: "flex",
@@ -32,7 +33,7 @@ const Header = ({ siteTitle }) => (
       in and out for safety reasons - it would sure save our bacon, and it might
       just save yours too!
     </p>
-    <SSO />
+    <Login />
   </div>
 )
 

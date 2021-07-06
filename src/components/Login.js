@@ -1,20 +1,35 @@
+// Component to manage user input for the SSO.
+
 import React, { useState } from "react"
 import "../styles/form.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-import { COLORS, GRADIENT, BORDER_RADIUS } from "../styles/constants"
+import LoadingSpinner from "./LoadingSpinner"
+import SubmitButton from "./SubmitButton"
+
 import submitForm from "../utils/connect-to-server"
 
 export default function Login(props) {
-  const [isSignIn, setIsSignIn] = useState(true)
+  // Stores whether the user is signing in (true) or out (false)
+  // Set as null so neither is selected initially.
+  const [isSignIn, setIsSignIn] = useState(null)
   const [fName, setFName] = useState("")
   const [lName, setLName] = useState("")
+  // Stores whether the site is currently executing a sign in / out request.
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmitForm = () => {
+    submitForm(
+      { fName, lName, isSignIn: isSignIn.toString() },
+      // Passed to remove spinner when complete.
+      setIsLoading
+    );
+  }
 
   return (
     <form className="shadow min-vw-25">
       <div className="form-group">
-        <label htmlFor="fname">First Name:</label>
+        <label htmlFor="fname">First name:</label>
         <input
           id="fname"
           type="text"
@@ -26,7 +41,7 @@ export default function Login(props) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="lname">Last Name:</label>
+        <label htmlFor="lname">Last name:</label>
         <input
           id="lname"
           type="text"
@@ -44,7 +59,7 @@ export default function Login(props) {
           name="is-sign-in"
           id="success-outlined"
           autoComplete="off"
-          checked={isSignIn}
+          checked={isSignIn !== null && isSignIn}
           onChange={e => setIsSignIn(true)}
         />
         <label
@@ -57,14 +72,13 @@ export default function Login(props) {
             🥳
           </span>
         </label>
-
         <input
           type="radio"
           className="btn-check"
           name="is-sign-in"
           id="danger-outlined"
           autoComplete="off"
-          checked={!isSignIn}
+          checked={isSignIn !== null && !isSignIn}
           onChange={e => setIsSignIn(false)}
         />
         <label className="btn btn-outline-danger" htmlFor="danger-outlined">
@@ -76,31 +90,14 @@ export default function Login(props) {
       </div>
       <br />
       <div>
+        {/* Renders a spinner if the site is loading, otherwise the submit button */}
         {isLoading ? (
-          <div className="col-xs-4 text-center">
-            <div className="spinner-border text-primary" role="status" />
-          </div>
+          <LoadingSpinner />
         ) : (
-          <button
-            style={{
-              color: COLORS.lightWhite,
-              background: GRADIENT,
-              borderRadius: BORDER_RADIUS,
-              width: "100%",
-            }}
-            type="submit"
-            onClick={e => {
-              e.preventDefault()
-              setIsLoading(true)
-              submitForm(
-                { fName, lName, isSignIn: isSignIn.toString() },
-                // Passed to remove spinner when complete.
-                setIsLoading
-              )
-            }}
-          >
-            Submit
-          </button>
+          <SubmitButton
+            setIsLoading={setIsLoading}
+            handleSubmitForm={handleSubmitForm}
+          />
         )}
       </div>
     </form>

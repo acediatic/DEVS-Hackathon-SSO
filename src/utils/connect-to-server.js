@@ -10,7 +10,7 @@ const displaySuccessAlert = isSignIn => {
     text: `You've successfully signed ${isSignIn === "true" ? "in" : "out"}!`,
     icon: "success",
     button: "Aww yiss!",
-  })
+  }).then(() => window.location.reload())
 }
 
 const displayErrorAlert = () => {
@@ -20,7 +20,7 @@ const displayErrorAlert = () => {
       "It's us, not you. We hit a snag and couldn't sign you out. Please try again, or let a member of DEVS know!",
     icon: "error",
     button: "*Angry Reaccs*",
-  })
+  }).then(() => window.location.reload())
 }
 
 const submitForm = (userDetails, setIsLoading) => {

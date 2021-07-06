@@ -1,17 +1,18 @@
 import sqlalchemy
-import re
 
-connection_name = "innate-life-318504:australia-southeast1:devs-hackathon"
-table_name = "siso"
-db_name = "siso"
-db_user = "root"
-db_password = "devs"
+from ENVIRONMENT_VARIABLES import CONNECTION_NAME, TABLE_NAME, DB_NAME, DB_USER, DB_PASSWORD
 
 # Database is MySQL
 driver_name = 'mysql+pymysql'
-query_string = dict({"unix_socket": "/cloudsql/{}".format(connection_name)})
+query_string = dict({"unix_socket": "/cloudsql/{}".format(CONNECTION_NAME)})
 
-def insert(request):
+''' Queries the Database with either a sign in (insert) or sign out (update). 
+    Request contains fName, lName, and isSignIn, where fName is the first name 
+    of the user, lName their last name, and isSignIn a boolean representing if they
+    are signing in.'''
+
+
+def queryDatabase(request):
     # Set CORS headers for the preflight request
     if request.method == 'OPTIONS':
         headers = {
@@ -19,7 +20,6 @@ def insert(request):
             'Access-Control-Allow-Methods': '*',
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
         }
-
         return ('', 204, headers)
 
     # Set CORS headers for the main request
@@ -29,43 +29,39 @@ def insert(request):
 
     request_json = request.get_json()
 
+    # Retrieve user details from JSON object
     first_name = request_json['fName']
     last_name = request_json['lName']
     isSignIn = request_json['isSignIn'] == 'true'
 
-    # Remove all non alphabetic characters to prevent SQL injection.
-    first_name_lst = re.findall('[^\W\d_]', first_name)
-    first_name = ''.join(first_name_lst)
+    # If signing in, use INSERT. If signing out, use update (update corresponding sign-in tuple)
+    insert_query = "insert into {} values ('{}', '{}', NOW(), null)".format(
+        TABLE_NAME, first_name, last_name)
+    update_query = "UPDATE {} SET so = NOW() WHERE fName='{}' AND lName = '{}' AND ISNULL(so)".format(
+        TABLE_NAME, first_name, last_name)
 
-    last_name_lst = re.findall('[^\W\d_]', last_name)
-    last_name = ''.join(last_name_lst)
-
-    # DATE_ADD(NOW(), INTERVAL 12 HOUR) adds 12 hours to convert GMT to local. 
-    insert_query = "insert into {} values ('{}', '{}', DATE_ADD(NOW(), INTERVAL 12 HOUR), null)".format(table_name, first_name, last_name)
-    update_query = "UPDATE {} SET so = DATE_ADD(NOW(), INTERVAL 12 HOUR) WHERE fName='{}' AND lName = '{}' AND ISNULL(so)".format(table_name, first_name, last_name)
-    
     # Defaults to insert query.
     stmt = sqlalchemy.text(update_query if not isSignIn else insert_query)
-    
+
     db = sqlalchemy.create_engine(
-      sqlalchemy.engine.url.URL(
-        drivername=driver_name,
-        username=db_user,
-        password=db_password,
-        database=db_name,
-        query=query_string,
-      ),
-      pool_size=5,
-      max_overflow=2,
-      pool_timeout=30,
-      pool_recycle=1800
+        sqlalchemy.engine.url.URL(
+            drivername=driver_name,
+            username=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_NAME,
+            query=query_string,
+        ),
+        pool_size=5,
+        max_overflow=2,
+        pool_timeout=30,
+        pool_recycle=1800
     )
 
-    # Executes the query, returning 200 if successful. 
+    # Executes the query, returning 200 if successful.
     try:
         with db.connect() as conn:
             conn.execute(stmt)
     except Exception as e:
         return 'Error: {}'.format(str(e))
-    
+
     return ('', 200, headers)
